@@ -46,47 +46,6 @@ const tools: Tool[] = [
     ),
   },
   {
-    name: "Adobe Photoshop",
-    borderColor: "rgba(255, 255, 255, 0.1)",
-    icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
-        <text x="50" y="62" fill="#FFFFFF" fontSize="38" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">Ps</text>
-      </svg>
-    ),
-  },
-  {
-    name: "Adobe Illustrator",
-    borderColor: "rgba(255, 255, 255, 0.1)",
-    icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
-        <text x="50" y="62" fill="#FFFFFF" fontSize="38" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">Ai</text>
-      </svg>
-    ),
-  },
-  {
-    name: "Adobe Audition",
-    borderColor: "rgba(255, 255, 255, 0.1)",
-    icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
-        <text x="50" y="62" fill="#FFFFFF" fontSize="38" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">Au</text>
-      </svg>
-    ),
-  },
-  {
-    name: "Blender",
-    borderColor: "rgba(255, 255, 255, 0.1)",
-    icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
-        <circle cx="50" cy="50" r="16" stroke="#ffffff" strokeWidth="3" />
-        <path d="M50 34 L68 18" stroke="#ffffff" strokeWidth="3" strokeLinecap="round" />
-      </svg>
-    ),
-  },
-  {
     name: "CapCut",
     borderColor: "rgba(255, 255, 255, 0.1)",
     icon: (
@@ -94,17 +53,6 @@ const tools: Tool[] = [
         <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
         <circle cx="38" cy="50" r="12" stroke="#ffffff" strokeWidth="4" fill="none" />
         <circle cx="62" cy="50" r="12" stroke="#ffffff" strokeWidth="4" fill="none" />
-      </svg>
-    ),
-  },
-  {
-    name: "Figma",
-    borderColor: "rgba(255, 255, 255, 0.1)",
-    icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
-        <path d="M38 30 C38 22 44 20 50 20 C56 20 62 22 62 30 C62 38 56 40 50 40 L38 40 Z" fill="none" stroke="#ffffff" strokeWidth="3" />
-        <circle cx="50" cy="60" r="10" stroke="#ffffff" strokeWidth="3" fill="none" />
       </svg>
     ),
   },
