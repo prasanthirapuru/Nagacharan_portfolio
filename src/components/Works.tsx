@@ -85,21 +85,24 @@ interface WorkCardProps {
   project: Project;
   isReel: boolean;
   onClick: (project: Project) => void;
+  shouldPlay: boolean;
 }
 
-const WorkCard = memo(function WorkCard({ project, isReel, onClick }: WorkCardProps) {
+const WorkCard = memo(function WorkCard({ project, isReel, onClick, shouldPlay }: WorkCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const rectRef = useRef<DOMRect | null>(null);
   const [isHovered, setIsHovered] = useState(false);
   const isMounted = useRef(false);
 
-  // Play video on hover; pause and reset to first frame when mouse leaves
+  // Play video when visible on screen/carousel or hovered; pause and reset to first frame otherwise
   useEffect(() => {
     const video = videoRef.current;
     if (!video || !video.getAttribute("src")) return;
 
-    if (isHovered) {
+    const targetPlayState = shouldPlay || isHovered;
+
+    if (targetPlayState) {
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch(() => {});
@@ -110,7 +113,7 @@ const WorkCard = memo(function WorkCard({ project, isReel, onClick }: WorkCardPr
         video.currentTime = 0.001;
       }
     }
-  }, [isHovered]);
+  }, [shouldPlay, isHovered]);
 
   useEffect(() => {
     isMounted.current = true;
@@ -195,6 +198,11 @@ const WorkCard = memo(function WorkCard({ project, isReel, onClick }: WorkCardPr
   );
 });
 
+// Helper mathematical function to check if card is visible inside the carousel's clipping viewport
+const isCardVisible = (cardIndex: number, carouselIndex: number, visibleCards: number) => {
+  return cardIndex + 1 > carouselIndex && cardIndex < carouselIndex + visibleCards;
+};
+
 /**
  * Works Section Component
  * Renders horizontal slide carousels for Instagram Reels (9:16) and YouTube videos (16:9).
@@ -208,6 +216,42 @@ export default function Works() {
 
   const reelsCarousel = useCarousel(reelsData.length, reelsVisible);
   const ytCarousel = useCarousel(youtubeData.length, ytVisible);
+
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Monitor portfolio load completion to stagger playback start
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      if ((window as any).__portfolioLoaded) {
+        setIsLoaded(true);
+        return;
+      }
+      const handleLoaded = () => setIsLoaded(true);
+      window.addEventListener("portfolio-loaded", handleLoaded);
+      return () => window.removeEventListener("portfolio-loaded", handleLoaded);
+    }
+  }, []);
+
+  // Intersection observer on Works section container to pause playback when out-of-screen
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsSectionVisible(entry.isIntersecting);
+      },
+      { threshold: 0.05 }
+    );
+    const el = sectionRef.current;
+    if (el) {
+      observer.observe(el);
+    }
+    return () => {
+      if (el) {
+        observer.unobserve(el);
+      }
+    };
+  }, []);
 
   // Set visible items based on screen breakpoints
   useEffect(() => {
@@ -245,7 +289,7 @@ export default function Works() {
   }, []);
 
   return (
-    <section id="works" className="relative min-h-screen w-full py-24 px-6 overflow-hidden bg-[#050505] border-t border-white/5">
+    <section ref={sectionRef} id="works" className="relative min-h-screen w-full py-24 px-6 overflow-hidden bg-[#050505] border-t border-white/5">
       <div className="max-w-7xl mx-auto w-full">
         {/* Title */}
         <div className="flex flex-col items-center text-center mb-24">
@@ -303,14 +347,21 @@ export default function Works() {
                 width: `${(reelsData.length / reelsVisible) * 100}%`,
               }}
             >
-              {reelsData.map((project) => {
+              {reelsData.map((project, idx) => {
+                const isInCarouselViewport = isCardVisible(idx, reelsCarousel.index, reelsVisible);
+                const shouldPlay = isLoaded && isSectionVisible && !selectedProject && isInCarouselViewport;
                 return (
                   <div
                     key={project.id}
                     className="px-3"
                     style={{ width: `${100 / reelsData.length}%` }}
                   >
-                    <WorkCard project={project} isReel={true} onClick={handleOpenModal} />
+                    <WorkCard
+                      project={project}
+                      isReel={true}
+                      onClick={handleOpenModal}
+                      shouldPlay={shouldPlay}
+                    />
                   </div>
                 );
               })}
@@ -354,14 +405,21 @@ export default function Works() {
                 width: `${(youtubeData.length / ytVisible) * 100}%`,
               }}
             >
-              {youtubeData.map((project) => {
+              {youtubeData.map((project, idx) => {
+                const isInCarouselViewport = isCardVisible(idx, ytCarousel.index, ytVisible);
+                const shouldPlay = isLoaded && isSectionVisible && !selectedProject && isInCarouselViewport;
                 return (
                   <div
                     key={project.id}
                     className="px-3"
                     style={{ width: `${100 / youtubeData.length}%` }}
                   >
-                    <WorkCard project={project} isReel={false} onClick={handleOpenModal} />
+                    <WorkCard
+                      project={project}
+                      isReel={false}
+                      onClick={handleOpenModal}
+                      shouldPlay={shouldPlay}
+                    />
                   </div>
                 );
               })}

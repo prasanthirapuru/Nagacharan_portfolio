@@ -62,10 +62,10 @@ function Counter({ value, duration = 2 }: { value: number; duration?: number }) 
 }
 
 const stats = [
-  { icon: Film, value: 25, label: "Projects Edited", suffix: "+" },
+  { icon: Film, value: 120, label: "Projects Edited", suffix: "+" },
   { icon: Award, value: 1, label: "Experience", suffix: " Year" },
-  { icon: Smile, value: 120, label: "Happy Clients", suffix: "+" },
-  { icon: Clock, value: 2000, label: "Hours in Premiere Pro", suffix: "+" },
+  { icon: Smile, value: 25, label: "Happy Clients", suffix: "+" },
+  { icon: Clock, value: 100, label: "Views Generated", suffix: "M+" },
 ];
 
 export default function About() {

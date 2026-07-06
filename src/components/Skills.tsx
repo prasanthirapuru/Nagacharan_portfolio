@@ -18,7 +18,7 @@ const tools: Tool[] = [
     name: "Adobe Premiere Pro",
     borderColor: "rgba(255, 255, 255, 0.1)",
     icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="w-10 h-10 opacity-90 sm:opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
         <text x="50" y="62" fill="#FFFFFF" fontSize="38" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">Pr</text>
       </svg>
@@ -28,7 +28,7 @@ const tools: Tool[] = [
     name: "Adobe After Effects",
     borderColor: "rgba(255, 255, 255, 0.1)",
     icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="w-10 h-10 opacity-90 sm:opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
         <text x="50" y="62" fill="#FFFFFF" fontSize="38" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">Ae</text>
       </svg>
@@ -38,7 +38,7 @@ const tools: Tool[] = [
     name: "DaVinci Resolve",
     borderColor: "rgba(255, 255, 255, 0.1)",
     icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="w-10 h-10 opacity-90 sm:opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
         <circle cx="50" cy="50" r="30" stroke="#ffffff" strokeWidth="2" strokeDasharray="6,4" />
         <circle cx="50" cy="50" r="10" fill="#ffffff" />
@@ -49,7 +49,7 @@ const tools: Tool[] = [
     name: "CapCut",
     borderColor: "rgba(255, 255, 255, 0.1)",
     icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="w-10 h-10 opacity-90 sm:opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
         <circle cx="38" cy="50" r="12" stroke="#ffffff" strokeWidth="4" fill="none" />
         <circle cx="62" cy="50" r="12" stroke="#ffffff" strokeWidth="4" fill="none" />
@@ -60,7 +60,7 @@ const tools: Tool[] = [
     name: "Canva",
     borderColor: "rgba(255, 255, 255, 0.1)",
     icon: (
-      <svg className="w-10 h-10 opacity-70 group-hover:opacity-100 transition-opacity duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <svg className="w-10 h-10 opacity-90 sm:opacity-70 group-hover:opacity-100 transition-opacity duration-300 filter drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect width="100" height="100" rx="16" fill="#000000" stroke="#333" strokeWidth="2" />
         <circle cx="50" cy="50" r="22" stroke="#ffffff" strokeWidth="3" fill="none" />
         <text x="50" y="58" fill="#FFFFFF" fontSize="24" fontWeight="bold" fontFamily="sans-serif" textAnchor="middle">C</text>
