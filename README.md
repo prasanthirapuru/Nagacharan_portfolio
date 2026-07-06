@@ -179,3 +179,10 @@ Deploy directly by importing your repository to Vercel:
 2. Select this repository.
 3. Keep default settings (the Vercel build script will execute `generate-works.js && next build` automatically).
 4. Click **Deploy**.
+
+
+
+### Handling Large Media Files with Git LFS
+
+
+  This project uses Git Large File Storage (Git LFS) to manage heavy media assets such as high-quality video files included in the portfolio. Since standard Git is not optimized for storing large binary files like .mp4 videos, Git LFS is used to efficiently track and upload these files without bloating the repository history. Instead of storing the full video content directly in Git commits, Git LFS replaces them with lightweight pointer files while handling the actual media storage separately. This approach allows the repository to remain manageable while still supporting high-resolution portfolio content. However, it is important to note that Git LFS has storage and bandwidth limits depending on the GitHub plan, and exceeding these limits may require upgrading storage or optimizing assets in the future. Therefore, if more videos are added or existing ones are frequently updated, it is recommended to consider external media hosting solutions such as a CDN or cloud storage to ensure scalability and maintain smooth repository performance.
