@@ -1,0 +1,211 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #050505;
+  --color-foreground: #f5f5f5;
+  
+  --color-luxury-bg: #050505;
+  --color-luxury-surface: #0b0b0b;
+  --color-luxury-card: #111111;
+  --color-luxury-hover: #181818;
+  --color-luxury-border: #202020;
+  
+  --color-accent-white: #ffffff;
+  --color-accent-gray: #a3a3a3;
+  --color-accent-slate: #475569;
+  --color-accent-purple: #4c1d95;
+  --color-accent-cyan: #0e7490;
+  
+  --color-neon-cyan: #00f5d4;
+  --color-neon-pink: #ff007f;
+  --color-neon-purple: #9d4edd;
+  
+  --animate-float-slow: float-slow 10s ease-in-out infinite;
+  --animate-spin-slow: spin 40s linear infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+
+:root {
+  --background: #050505;
+  --foreground: #f5f5f5;
+  scrollbar-color: #475569 #050505;
+  scrollbar-width: thin;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-family: var(--font-geist-sans), sans-serif;
+  letter-spacing: -0.01em;
+}
+
+/* Luxury minimal glass card style */
+.glass-panel {
+  background: rgba(17, 17, 17, 0.4);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.glass-panel-hover {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-hover:hover {
+  background: rgba(24, 24, 24, 0.6);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  transform: translateY(-2px);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #202020;
+  border-radius: 3px;
+  transition: background-color 0.3s;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Custom cursor fine pointer hides */
+@media (pointer: fine) {
+  body, html {
+    cursor: none;
+  }
+}
+
+/* Ensure default browser pointer (hand) shows on these target interactive elements */
+a, 
+button, 
+select, 
+input, 
+textarea, 
+[role="button"],
+.cursor-pointer-target {
+  cursor: pointer !important;
+}
+
+/* Clean grid mesh overlay */
+.grid-bg {
+  background-size: 80px 80px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.01) 1px, transparent 1px);
+  mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+}
+
+/* Typography elements */
+.text-reveal {
+  background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.4) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Lenis smooth scrolling rules */
+html.lenis, html.lenis-smooth {
+  height: auto;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+/* Prevent Chrome/Safari white autofill backgrounds and completed-field yellow overlays */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  -webkit-text-fill-color: #ffffff !important;
+  -webkit-box-shadow: 0 0 0px 1000px #0b0b0b inset !important;
+  box-shadow: 0 0 0px 1000px #0b0b0b inset !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* Override focused autofill state to match standard input focus backgrounds */
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #111111 inset !important;
+  box-shadow: 0 0 0px 1000px #111111 inset !important;
+}
+
+/* Cinematic Name VFX classes */
+@keyframes shine-sweep {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+@keyframes slow-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.08)) drop-shadow(0 0 25px rgba(255, 255, 255, 0.03));
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.18)) drop-shadow(0 0 40px rgba(255, 255, 255, 0.08));
+  }
+}
+
+.cinematic-name {
+  font-family: var(--font-cinzel), serif;
+  background: linear-gradient(
+    90deg,
+    #ffffff 0%,
+    #e2e8f0 25%,
+    #ffffff 50%,
+    #e2e8f0 75%,
+    #ffffff 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 12s linear infinite, slow-glow 6s ease-in-out infinite;
+  letter-spacing: 0.04em;
+  font-weight: 900;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 30s linear infinite;
+}
+
