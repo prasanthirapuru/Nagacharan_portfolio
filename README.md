@@ -186,3 +186,100 @@ Deploy directly by importing your repository to Vercel:
 
 
   This project uses Git Large File Storage (Git LFS) to manage heavy media assets such as high-quality video files included in the portfolio. Since standard Git is not optimized for storing large binary files like .mp4 videos, Git LFS is used to efficiently track and upload these files without bloating the repository history. Instead of storing the full video content directly in Git commits, Git LFS replaces them with lightweight pointer files while handling the actual media storage separately. This approach allows the repository to remain manageable while still supporting high-resolution portfolio content. However, it is important to note that Git LFS has storage and bandwidth limits depending on the GitHub plan, and exceeding these limits may require upgrading storage or optimizing assets in the future. Therefore, if more videos are added or existing ones are frequently updated, it is recommended to consider external media hosting solutions such as a CDN or cloud storage to ensure scalability and maintain smooth repository performance.
+
+
+  ### Got it — you want a **clean README section explaining your Git workflow after editing code in VS Code**. Here’s a ready-to-paste version:
+
+---
+
+## 🔁 Git Workflow (How to Update This Project)
+
+Whenever you make changes in VS Code, follow these steps to update the repository:
+
+### 1. Check changed files
+
+```bash
+git status
+```
+
+This shows which files were modified, added, or deleted.
+
+---
+
+### 2. Stage your changes
+
+```bash
+git add .
+```
+
+This adds all updated files to the staging area.
+
+> You can also add a specific file:
+
+```bash
+git add filename
+```
+
+---
+
+### 3. Commit your changes
+
+```bash
+git commit -m "Your meaningful commit message"
+```
+
+Example:
+
+```bash
+git commit -m "Updated hero section UI and fixed navbar spacing"
+```
+
+---
+
+### 4. Push changes to GitHub
+
+```bash
+git push origin main
+```
+
+This uploads your changes to the GitHub repository.
+
+---
+
+## ⚠️ If push fails (common issue)
+
+If you see an error like *“fetch first”*:
+
+```bash
+git pull origin main --rebase
+git push origin main
+```
+
+---
+
+## 🚀 Summary (Quick version)
+
+```bash
+git status
+git add .
+git commit -m "message"
+git push origin main
+```
+
+---
+
+## 💡 Important Notes
+
+* Always write **clear commit messages**
+* Do not commit `node_modules` or `.next` folders
+* Push frequently after meaningful changes
+* Keep your repository clean and organized
+
+---
+
+If you want, I can also:
+
+* make this README look **more professional (portfolio-grade)**
+* or add a “Project Setup Instructions” section
+* or write a full **README like top 1% developer portfolios** 👍
+
