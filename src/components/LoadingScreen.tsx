@@ -34,7 +34,7 @@ export default function LoadingScreen() {
           // Restore overflow on body
           document.body.style.overflow = "";
           if (typeof window !== "undefined") {
-            (window as any).__portfolioLoaded = true;
+            (window as unknown as { __portfolioLoaded?: boolean }).__portfolioLoaded = true;
             window.dispatchEvent(new CustomEvent("portfolio-loaded"));
           }
         }, 300); // Elegant delay after progress finishes

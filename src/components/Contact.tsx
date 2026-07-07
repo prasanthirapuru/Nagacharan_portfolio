@@ -87,7 +87,8 @@ export default function Contact() {
       setTimeout(() => {
         setIsSubmitted(false);
       }, 5000);
-    } catch (error: any) {
+    } catch (err: unknown) {
+      const error = err as { status?: number; text?: string; message?: string };
       console.error("EmailJS Error Object:", error);
       console.error("Status:", error?.status);
       console.error("Text:", error?.text);
@@ -118,7 +119,7 @@ export default function Contact() {
             Contact Us
           </motion.h2>
           <p className="max-w-xl text-xs sm:text-sm text-white/60 leading-relaxed font-light mt-4">
-            Have a project in mind? Let's create something amazing together.
+            Have a project in mind? Let&apos;s create something amazing together.
           </p>
           <motion.div
             initial={{ width: 0 }}

@@ -52,9 +52,7 @@ function useCarousel(itemsCount: number, visibleCards: number) {
   const [index, setIndex] = useState(0);
 
   const prev = () => {
-    setIndex((prevIndex) => {
-      return Math.max(0, prevIndex - 1);
-    });
+    setIndex((prevIndex) => Math.max(0, prevIndex - 1));
   };
 
   const next = () => {
@@ -64,13 +62,10 @@ function useCarousel(itemsCount: number, visibleCards: number) {
     });
   };
 
-  useEffect(() => {
-    setIndex((prevIndex) => {
-      const maxIndex = Math.max(0, itemsCount - visibleCards);
-      if (prevIndex > maxIndex) return maxIndex;
-      return prevIndex;
-    });
-  }, [itemsCount, visibleCards]);
+  const maxIndex = Math.max(0, itemsCount - visibleCards);
+  if (index > maxIndex) {
+    setIndex(maxIndex);
+  }
 
   return { index, prev, next };
 }
@@ -86,9 +81,10 @@ interface WorkCardProps {
   isReel: boolean;
   onClick: (project: Project) => void;
   shouldPlay: boolean;
+  loadVideo: boolean;
 }
 
-const WorkCard = memo(function WorkCard({ project, isReel, onClick, shouldPlay }: WorkCardProps) {
+const WorkCard = memo(function WorkCard({ project, isReel, onClick, shouldPlay, loadVideo }: WorkCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const rectRef = useRef<DOMRect | null>(null);
@@ -113,7 +109,7 @@ const WorkCard = memo(function WorkCard({ project, isReel, onClick, shouldPlay }
         video.currentTime = 0.001;
       }
     }
-  }, [shouldPlay, isHovered]);
+  }, [shouldPlay, isHovered, loadVideo]);
 
   useEffect(() => {
     isMounted.current = true;
@@ -176,7 +172,7 @@ const WorkCard = memo(function WorkCard({ project, isReel, onClick, shouldPlay }
       <div className={`relative w-full overflow-hidden bg-[#050505] flex-1 ${isReel ? "aspect-[9/16]" : "aspect-[16/9]"}`}>
         <video
           ref={videoRef}
-          src={`${project.videoUrl}#t=0.001`}
+          src={loadVideo ? `${project.videoUrl}#t=0.001` : ""}
           loop
           muted
           playsInline
@@ -219,12 +215,15 @@ export default function Works() {
 
   const sectionRef = useRef<HTMLElement>(null);
   const [isSectionVisible, setIsSectionVisible] = useState(false);
+  const [hasEnteredViewport, setHasEnteredViewport] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Monitor portfolio load completion to stagger playback start
   useEffect(() => {
     if (typeof window !== "undefined") {
-      if ((window as any).__portfolioLoaded) {
+      const win = window as unknown as { __portfolioLoaded?: boolean };
+      if (win.__portfolioLoaded) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setIsLoaded(true);
         return;
       }
@@ -239,6 +238,9 @@ export default function Works() {
     const observer = new IntersectionObserver(
       ([entry]) => {
         setIsSectionVisible(entry.isIntersecting);
+        if (entry.isIntersecting) {
+          setHasEnteredViewport(true);
+        }
       },
       { threshold: 0.05 }
     );
@@ -350,6 +352,7 @@ export default function Works() {
               {reelsData.map((project, idx) => {
                 const isInCarouselViewport = isCardVisible(idx, reelsCarousel.index, reelsVisible);
                 const shouldPlay = isLoaded && isSectionVisible && !selectedProject && isInCarouselViewport;
+                const loadVideo = hasEnteredViewport && idx >= reelsCarousel.index - 1 && idx <= reelsCarousel.index + reelsVisible;
                 return (
                   <div
                     key={project.id}
@@ -361,6 +364,7 @@ export default function Works() {
                       isReel={true}
                       onClick={handleOpenModal}
                       shouldPlay={shouldPlay}
+                      loadVideo={loadVideo}
                     />
                   </div>
                 );
@@ -408,6 +412,7 @@ export default function Works() {
               {youtubeData.map((project, idx) => {
                 const isInCarouselViewport = isCardVisible(idx, ytCarousel.index, ytVisible);
                 const shouldPlay = isLoaded && isSectionVisible && !selectedProject && isInCarouselViewport;
+                const loadVideo = hasEnteredViewport && idx >= ytCarousel.index - 1 && idx <= ytCarousel.index + ytVisible;
                 return (
                   <div
                     key={project.id}
@@ -419,6 +424,7 @@ export default function Works() {
                       isReel={false}
                       onClick={handleOpenModal}
                       shouldPlay={shouldPlay}
+                      loadVideo={loadVideo}
                     />
                   </div>
                 );

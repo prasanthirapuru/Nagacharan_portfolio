@@ -84,12 +84,23 @@ const skillTags = [
 
 function SkillCard({ tool }: { tool: Tool }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const rectRef = useRef<DOMRect | null>(null);
+
+  const handleMouseEnter = () => {
+    const card = cardRef.current;
+    if (card) {
+      rectRef.current = card.getBoundingClientRect();
+    }
+  };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const card = cardRef.current;
     if (!card) return;
 
-    const rect = card.getBoundingClientRect();
+    if (!rectRef.current) {
+      rectRef.current = card.getBoundingClientRect();
+    }
+    const rect = rectRef.current;
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
@@ -111,11 +122,13 @@ function SkillCard({ tool }: { tool: Tool }) {
     card.style.transform = `perspective(800px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
     card.style.borderColor = "rgba(255, 255, 255, 0.05)";
     card.style.backgroundColor = "#111111";
+    rectRef.current = null;
   };
 
   return (
     <div
       ref={cardRef}
+      onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       className="bg-[#111111] border border-white/5 rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 ease-out h-40 select-none group"

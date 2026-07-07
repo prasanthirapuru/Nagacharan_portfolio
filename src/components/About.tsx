@@ -40,22 +40,31 @@ function Counter({ value, duration = 2 }: { value: number; duration?: number }) 
   useEffect(() => {
     if (!isVisible) return;
 
-    let start = 0;
-    const end = value;
-    const totalTicks = 60;
-    const stepTime = (duration * 1000) / totalTicks;
-    
-    const timer = setInterval(() => {
-      start += Math.ceil(end / totalTicks);
-      if (start >= end) {
-        setCount(end);
-        clearInterval(timer);
-      } else {
-        setCount(start);
-      }
-    }, stepTime);
+    let startTimestamp: number | null = null;
+    const endValue = value;
+    let rafId: number;
 
-    return () => clearInterval(timer);
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / (duration * 1000), 1);
+      
+      // Easing function: easeOutQuad
+      const easedProgress = progress * (2 - progress);
+      
+      setCount(Math.floor(easedProgress * endValue));
+
+      if (progress < 1) {
+        rafId = requestAnimationFrame(step);
+      } else {
+        setCount(endValue);
+      }
+    };
+
+    rafId = requestAnimationFrame(step);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+    };
   }, [value, duration, isVisible]);
 
   return <span ref={elementRef}>{count}</span>;
@@ -111,7 +120,7 @@ export default function About() {
             transition={{ delay: 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             className="text-sm sm:text-base text-white/60 leading-relaxed font-light mb-6 max-w-3xl"
           >
-            Hi, I'm <strong className="text-white font-semibold">Nagacharan</strong>. I craft high-impact video campaigns, dynamic YouTube content, high-retention Instagram reels, and premium commercials. With a passion for pacing, flow, and color harmony, I transform raw footage into premium cinematic experiences.
+            Hi, I&apos;m <strong className="text-white font-semibold">Nagacharan</strong>. I craft high-impact video campaigns, dynamic YouTube content, high-retention Instagram reels, and premium commercials. With a passion for pacing, flow, and color harmony, I transform raw footage into premium cinematic experiences.
           </motion.p>
 
           <motion.p

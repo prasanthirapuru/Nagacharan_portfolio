@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
 const Scene3D = dynamic(() => import("./Scene3D"), { ssr: false });
@@ -17,6 +17,29 @@ export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const viewWorksBtnRef = useRef<HTMLAnchorElement>(null);
   const hireMeBtnRef = useRef<HTMLAnchorElement>(null);
+  const [isHeroVisible, setIsHeroVisible] = useState(true);
+
+  // IntersectionObserver to unmount Scene3D Canvas when out-of-screen (performance optimization)
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsHeroVisible(entry.isIntersecting);
+      },
+      {
+        root: null,
+        rootMargin: "200px", // Pre-load 200px before scroll-in
+        threshold: 0,
+      }
+    );
+
+    observer.observe(el);
+    return () => {
+      observer.unobserve(el);
+    };
+  }, []);
 
   // Set up magnetic button physics for desktop hover micro-interactions
   useEffect(() => {
@@ -95,7 +118,7 @@ export default function Hero() {
       className="relative min-h-screen w-full flex items-center justify-center overflow-hidden pt-20 grid-bg bg-[#050505]"
     >
       {/* 3D Glass Ring canvas overlay */}
-      <Scene3D />
+      {isHeroVisible && <Scene3D />}
 
       {/* Extremely subtle dark radial gradients to create calm depth */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80vw] h-[80vw] bg-white/[0.01] rounded-full filter blur-[140px] pointer-events-none -z-10" />
