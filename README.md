@@ -283,3 +283,60 @@ If you want, I can also:
 * or add a “Project Setup Instructions” section
 * or write a full **README like top 1% developer portfolios** 👍
 
+
+
+### # Media Migration & Performance Optimization
+
+## Overview
+
+To improve website performance and avoid bandwidth limitations, the portfolio's video assets were migrated from local storage to **Cloudinary**.
+
+## Changes Made
+
+* Removed all local `.mp4` video files from the project.
+* Replaced local video paths with Cloudinary-hosted video URLs.
+* Enabled Cloudinary automatic optimization using `q_auto,f_auto` for improved loading speed and bandwidth efficiency.
+* Implemented lazy loading for videos to reduce initial page load time.
+* Optimized video loading behavior to improve scrolling and interaction performance.
+* Cleaned up unused media-related files and references.
+* Updated the project to use externally hosted media instead of bundling large video assets.
+
+## Why This Change?
+
+Hosting large video files directly with the application increased deployment size and bandwidth usage. By serving videos through Cloudinary:
+
+* Faster video delivery through a global CDN.
+* Automatic video optimization based on the user's browser and network.
+* Reduced bandwidth usage on the hosting platform.
+* Smaller application size.
+* Better scalability and improved overall performance.
+
+## Tech Stack
+
+* **Framework:** Next.js
+* **Frontend:** React
+* **Media Hosting:** Cloudinary
+* **Deployment:** Vercel
+* **Version Control:** Git & GitHub
+
+## Deployment Workflow
+
+Whenever changes are made:
+
+```bash
+git add .
+git commit -m "Describe your changes"
+git push origin main
+```
+
+The project is connected to GitHub, and every push to the `main` branch automatically triggers a new deployment on Vercel.
+
+## Performance Improvements
+
+* Cloud-hosted video delivery.
+* Automatic video optimization (`q_auto,f_auto`).
+* Reduced application size.
+* Improved loading performance.
+* Better runtime efficiency.
+* Smoother user experience across desktop and mobile devices.
+
